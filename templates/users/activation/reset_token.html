@@ -1,0 +1,5 @@
+<p>Your token has expired, you can reset by pressing:</p>
+<form action="{% url 'users:activation:reset_token' token %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Reset Token</button>
+</form>
