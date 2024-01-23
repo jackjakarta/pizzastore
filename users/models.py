@@ -39,9 +39,15 @@ class Activation(models.Model):
     token = models.CharField(
         max_length=64,
         null=True,
-        default=secrets.token_hex(32)
+        unique=True,  # new
+        default=None,  # new
     )
     expires_at = models.DateTimeField(
         default=timezone.now() + timezone.timedelta(**AVAILABILITY)
     )
     activated_at = models.DateTimeField(default=None, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = secrets.token_hex(32)
+        super().save(*args, **kwargs)
