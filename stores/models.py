@@ -35,8 +35,8 @@ class Store(CustomModel):
 
 class StoreIngredients(CustomModel):
     class Meta:
-        verbose_name = "store_ingredient"
-        verbose_name_plural = "store_ingredients"
+        verbose_name = "store ingredient"
+        verbose_name_plural = "store ingredient"
 
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='ingredients')
@@ -56,9 +56,9 @@ class Pizza(CustomModel):
         verbose_name_plural = "pizza"
 
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name="pizza")
-    name = models.CharField("Pizza Name", max_length=255, unique=True)
-    image = models.ImageField("Pizza Image", upload_to="pizza/", default=None)
-    price = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    name = models.CharField("Pizza Name", max_length=255)
+    image = models.ImageField("Pizza Image", upload_to="pizza/")
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     ingredients = models.ManyToManyField(StoreIngredients, through="PizzaIngredients", related_name="pizza")
 
     @property
@@ -75,7 +75,7 @@ class Pizza(CustomModel):
 class PizzaIngredients(CustomModel):
     pizza = models.ForeignKey(Pizza, on_delete=models.CASCADE)
     store_ingredient = models.ForeignKey(StoreIngredients, on_delete=models.CASCADE)
-    quantity = models.IntegerField(null=False, default=0)
+    quantity = models.IntegerField(null=False, default=1)
 
     def __str__(self):
         return f"{self.pizza} - {self.store_ingredient}"

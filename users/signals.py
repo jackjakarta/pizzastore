@@ -25,6 +25,6 @@ def create_activation(sender, instance, created, **kwargs):
         with transaction.atomic():
             if created:
                 Activation(user=instance).save()
-                send_activation_email(instance)
+                # send_activation_email(instance)
     except ValueError:
         AuthUserModel.objects.get(pk=instance.id).delete()
