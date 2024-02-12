@@ -3,13 +3,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from catalog.views import home_view, register_view
+from catalog.views import home_view, register_view, contact_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
+    path('contact/', contact_view, name='contact'),
     path('register/', register_view, name='register'),
     path('users/', include('users.urls')),
+    path('stores/', include('stores.urls')),
 ]
 
 

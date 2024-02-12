@@ -20,3 +20,7 @@ def register_view(request):
     return render(request, "users/register.html", {
         "form": form
     })
+
+
+def contact_view(request):
+    return render(request, "contact.html", {})

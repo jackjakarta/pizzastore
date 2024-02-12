@@ -1,0 +1,39 @@
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'css/pagination.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+<div class="pagination">
+    <a class="wrapper circle" href="{{ request }}">
+        <i class="fas fa-angle-double-left"></i>
+    </a>
+    {% if page_obj.has_previous %}
+        <a class="wrapper circle" href="{{ request }}">
+    {% else %}
+        <a class="wrapper circle">
+    {% endif %}
+        <i class="fas fa-angle-left"></i>
+    </a>
+    {% with aux_page_obj=page_obj %}
+        {% for page in aux_page_obj %}
+            {% if page is None %}
+                <span>.............................</span>
+            {% else %}
+                <a class="wrapper {% if page_obj.number == page.number %}active{% endif %}" href="{{ request }}">{{ page.number }}</a>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+
+    {% if page_obj.has_next %}
+        <a class="wrapper circle" href="{{ request }}">
+    {% else %}
+        <a class="wrapper circle">
+    {% endif %}
+      <i class="fas fa-angle-right"></i>
+    </a>
+    <a class="wrapper circle" href="{{ request }}">
+        <i class="fas fa-angle-double-right"></i>
+    </a>
+</div>

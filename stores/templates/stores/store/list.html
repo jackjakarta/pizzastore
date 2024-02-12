@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul>
+        {% for store in store_list %}
+            <li>
+                <a href="">
+                    <img src="{{ store.logo.url }}" width="100" />
+                    <div>{{ store.name }}</div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

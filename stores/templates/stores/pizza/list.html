@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/pizza.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+    {% include 'pagination.html' %}
+    <ul class="pizza-list">
+
+        {% for pizza in page_obj %}
+            <li>
+                <a href="">
+                    <img src="{{ pizza.image.url }}" width="100" />
+                    <div>{{ pizza.name }}</div>
+                    <div>{{ pizza.price }}</div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% include 'pagination.html' %}
+{% endblock %}
