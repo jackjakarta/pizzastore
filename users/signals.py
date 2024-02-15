@@ -1,8 +1,10 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth.signals import user_logged_in
+from django.db import transaction
 from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
-from django.db import transaction
-from django.contrib.auth import get_user_model
 
+from stores.utils.cart import Cart
 from .models import Activation
 from .views.activation import send_activation_email
 
@@ -28,3 +30,8 @@ def create_activation(sender, instance, created, **kwargs):
                 send_activation_email(instance)
     except ValueError:
         AuthUserModel.objects.get(pk=instance.id).delete()
+
+
+@receiver(user_logged_in)
+def get_cart_data(request, user, **kwargs):
+    Cart.load(user, request.session)

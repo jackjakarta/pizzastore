@@ -1,12 +1,13 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect, Http404, get_object_or_404, reverse
+from django.shortcuts import render, redirect, Http404, reverse
 
-from stores.models import Pizza
+from stores.forms.filter import SearchAndFilterPizza
 from stores.utils.cart import Cart
 
 
 def pizza_list_view(request):
-    pizza_list = Pizza.objects.all().order_by('price')
+    form = SearchAndFilterPizza(request.GET)
+    pizza_list = form.get_filtered_pizza()
     paginator = Paginator(pizza_list, 9)
 
     page_number = request.GET.get('page', 1)
@@ -15,6 +16,7 @@ def pizza_list_view(request):
 
     return render(request, 'stores/pizza/list.html', {
         'page_obj': page_obj,
+        'form': form,
     })
 
 

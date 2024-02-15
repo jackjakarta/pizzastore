@@ -2,12 +2,20 @@
 {% load static %}
 
 
+{% block title %}
+Pizzas
+{% endblock %}
+
+
 {% block style %}
     <link href="{% static 'css/pizza.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/search.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block content %}
     {% include 'pagination.html' %}
+    {% include 'stores/pizza/filters.html' %}
+
     <ul class="pizza-list">
 
         {% for pizza in page_obj %}

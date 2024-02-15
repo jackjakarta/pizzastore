@@ -7,4 +7,5 @@ app_name = 'stores'
 urlpatterns = [
     path('', StoreList.as_view(), name='list'),
     path('pizza/', include("stores.urls.pizza")),
+    # path('cart/', include("stores.urls.cart")),
 ]
